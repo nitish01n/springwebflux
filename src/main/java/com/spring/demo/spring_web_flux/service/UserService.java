@@ -24,7 +24,9 @@ public class UserService {
 	public Mono<ServerResponse> findAllUsers(ServerRequest request)
 	{
 		Flux<User> users = userRepository.findAll();
-		return ServerResponse.ok().contentType(MediaType.TEXT_EVENT_STREAM).body(users,User.class);
+		return ServerResponse.ok()
+//				.contentType(MediaType.TEXT_EVENT_STREAM)
+				.body(users,User.class);
 	}
 
 	public Mono<ServerResponse> findUserById(ServerRequest request) {

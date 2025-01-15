@@ -40,13 +40,13 @@ public class UserController {
 	}
 	
 	@PutMapping("/{id}")
-	public Mono<User> modifyUser(@RequestBody User user,@PathVariable int id)
+	public Mono<User> modifyUser(@RequestBody User user,@PathVariable("id") int id)
 	{
 		return userService.updateUser(user,id);
 	}
 	
 	@DeleteMapping("/{id}")
-	public Mono<Void> deleteUser(int id)
+	public Mono<Void> deleteUser(@PathVariable("id") int id)
 	{
 		return userService.deleteUserById(id);
 	}
