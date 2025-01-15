@@ -60,11 +60,13 @@ public class UserService {
         	user1.setCountry(user.getCountry());
             return userRepository.save(user1);
         })
-        .switchIfEmpty(Mono.error(new RuntimeException("User not found")));
+        .switchIfEmpty(Mono.error(new UserNotFoundException("User not found with ID:"+id)));
 	}
 
 	public Mono<Void> deleteUserById(int id) {
-		return userRepository.deleteById(id);
+		return userRepository.findById(id)
+				.switchIfEmpty(Mono.error(new UserNotFoundException("User not found with ID: " + id)))
+	            .flatMap(user -> userRepository.deleteById(id));
 	}
 	
 	
